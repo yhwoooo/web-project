@@ -31,7 +31,7 @@ function Login() {
             <div className={styles.line}></div>
             <div className={styles.b}>
               <div className={styles.body_text}>
-                카카오로
+                다른 아이디로
                 <br />
                 간편하게
                 <br />
