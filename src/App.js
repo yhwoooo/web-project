@@ -6,7 +6,7 @@ import Sign_up from "./routes/Sign_up";
 import { Link } from "react-router-dom";
 import Index_home from "./pages/Index_home";
 import Layout from "./components/layout/Layout";
-import Whyso from "./routes/Whyso";
+import Whyso from "./routes/genres/Whyso";
 import Musical from "./components/munhwa/Musical";
 import MunhwaDetail from "./components/munhwa/MunhwaDetail";
 import ScrollToTop from "./components/scrollToTop/ScrollToTop";
@@ -28,6 +28,9 @@ import Festival from "./components/munhwa/Festival";
 import Solo_SingingParty from "./components/munhwa/Solo_SingingParty";
 import MyPage from "./components/myPage/MyPage";
 import ModifyMyPage from "./components/myPage/ModifyMyPage";
+import Input_signup from "./routes/Input_signup";
+import Logout from "./routes/Logout";
+import KakaoAuthHandler from "./routes/KakaoAuthHandler";
 
 function App(props) {
   return (
@@ -38,9 +41,8 @@ function App(props) {
           <Route path="/" element={<Index_home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign_up" element={<Sign_up />} />
-          <Route path="/whyso" element={<Whyso />} />
           <Route path="/musical" element={<Musical />} />
-          <Route path="/munhwaRow/:title" element={<MunhwaDetail />} />
+          <Route path="/munhwaRow/:id" element={<MunhwaDetail />} />
           <Route path="/cultureAndCulture" element={<CultureAndCulture />} />
           <Route path="/Classic" element={<Classic />} />
           <Route path="/Concert" element={<Concert />} />
@@ -68,6 +70,10 @@ function App(props) {
           <Route path="/Solo_SingingParty" element={<Solo_SingingParty />} />
           <Route path="/MyPage" element={<MyPage />} />
           <Route path="/ModifyMyPage" element={<ModifyMyPage />} />
+          <Route path="/Input_signup" element={<Input_signup />} />
+          <Route path="/auth/kakao/callback" element={<KakaoAuthHandler />} />
+          <Route path="/Logout" element={<Logout />} />
+          {/* <Route path="/Layout" element={<Layout />} /> */}
         </Routes>
       </Layout>
     </Router>

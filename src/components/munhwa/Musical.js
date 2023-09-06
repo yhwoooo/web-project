@@ -6,14 +6,25 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function Musical() {
-  const [inputD, setInputD] = useState([]);
+  const [inputD, setInputD] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/music.json").then((res) => {
-      setInputD(res.data);
-      console.log(res.data);
-    });
+    setLoading(true);
+    axios
+      .get("/api/home")
+      .then((res) => {
+        setInputD(res.data);
+        setLoading(false);
+        console.log(res.data);
+      })
+      .catch((err) => setError(err));
   }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error...</div>;
+  if (!inputD) return null;
 
   return (
     <div className={styles.container}>
@@ -25,12 +36,9 @@ function Musical() {
             </h1>
           </div>
           <div className={styles.searchbarcontainer}>
-            <Searchbar inputD={inputD} />
+            <Searchbar inputD={inputD.recentCultures} />
           </div>
         </div>
-        {/* <div>
-          <SearchResultsList inputD={inputD} data={dataa} />
-        </div> */}
       </div>
     </div>
   );

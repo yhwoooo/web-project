@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./MyPage.module.css";
 import { Link, NavLink } from "react-router-dom";
+import MyPickCulture from "./MyPickCulture";
+import MyReview from "./MyReview";
+import MyCultureFriend from "./MyCultureFriend";
 
 function MyPage() {
   const activeStyle = {
     color: "dodgerblue",
+  };
+
+  const [viewPoint, setViewPoint] = useState(0);
+  const [buttonColor1, setButtonColor1] = useState(true);
+  const [buttonColor2, setButtonColor2] = useState(true);
+  const [buttonColor3, setButtonColor3] = useState(true);
+
+  const switchComponent = () => {
+    switch (viewPoint) {
+      case 1:
+        return <MyPickCulture />;
+      case 2:
+        return <MyReview />;
+      case 3:
+        return <MyCultureFriend />;
+      default:
+        return <></>;
+    }
   };
 
   return (
@@ -42,13 +63,70 @@ function MyPage() {
             <div className={styles.line}></div>
             <div className={styles.b}>
               <div className={styles.body_text}>
-                <NavLink>내가 찜한 문화</NavLink>
+                <button
+                  className={
+                    buttonColor1 ? styles.classicButton : styles.activeButton
+                  }
+                  onClick={() => {
+                    if (viewPoint === 1) {
+                      setViewPoint(0);
+                      setButtonColor1(true);
+                      setButtonColor2(true);
+                      setButtonColor3(true);
+                    } else {
+                      setViewPoint(1);
+                      setButtonColor1(false);
+                      setButtonColor2(true);
+                      setButtonColor3(true);
+                    }
+                  }}
+                >
+                  내가 찜한 문화
+                </button>
               </div>
               <div className={styles.body_text}>
-                <NavLink>내가 작성한 리뷰 글</NavLink>
+                <button
+                  className={
+                    buttonColor2 ? styles.classicButton : styles.activeButton
+                  }
+                  onClick={() => {
+                    if (viewPoint === 2) {
+                      setViewPoint(0);
+                      setButtonColor1(true);
+                      setButtonColor2(true);
+                      setButtonColor3(true);
+                    } else {
+                      setViewPoint(2);
+                      setButtonColor2(false);
+                      setButtonColor1(true);
+                      setButtonColor3(true);
+                    }
+                  }}
+                >
+                  내가 작성한 리뷰 글
+                </button>
               </div>
               <div className={styles.body_text}>
-                <NavLink>내가 작성한 문화친구 글</NavLink>
+                <button
+                  className={
+                    buttonColor3 ? styles.classicButton : styles.activeButton
+                  }
+                  onClick={() => {
+                    if (viewPoint === 3) {
+                      setViewPoint(0);
+                      setButtonColor1(true);
+                      setButtonColor2(true);
+                      setButtonColor3(true);
+                    } else {
+                      setViewPoint(3);
+                      setButtonColor3(false);
+                      setButtonColor1(true);
+                      setButtonColor2(true);
+                    }
+                  }}
+                >
+                  내가 작성한 문화친구 글
+                </button>
               </div>
               <div id={styles.body_text}>
                 <Link className={styles.body_text_link} to={`/ModifyMyPage`}>
@@ -57,7 +135,7 @@ function MyPage() {
               </div>
             </div>
           </div>
-          <div className={styles.body_inner_bottom}>gi</div>
+          <div className={styles.body_inner_bottom}>{switchComponent()}</div>
         </div>
       </div>
     </div>
@@ -65,3 +143,11 @@ function MyPage() {
 }
 
 export default MyPage;
+
+// {viewPoint === 1 ? (
+//   <MyPickCulture />
+// ) : viewPoint === 2 ? (
+//   <MyReview />
+// ) : (
+//   <MyCultureFriend />
+// )}

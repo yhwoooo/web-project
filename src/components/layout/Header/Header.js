@@ -1,7 +1,29 @@
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
+const urlLeft = {
+  true: "/Logout",
+  false: "/Login",
+};
+
+const urlRight = {
+  true: "/Mypage",
+  false: "/Sign_up",
+};
+
+const nameLeft = {
+  true: "로그아웃",
+  false: "로그인",
+};
+
+const nameRight = {
+  true: "마이페이지",
+  false: "회원가입",
+};
+
 function Header(props) {
+  const isLogin = sessionStorage.getItem("userId") === null ? false : true;
+
   return (
     <div className={styles.header}>
       <div className={styles.header_upper}>
@@ -10,11 +32,19 @@ function Header(props) {
             문화 인 서울
           </Link>
           <div className={styles.login_route}>
-            <Link to={`/Login`} className={styles.link} id={styles.login}>
-              로그인
+            <Link
+              to={urlLeft[isLogin]}
+              className={styles.link}
+              id={styles.login}
+            >
+              {nameLeft[isLogin]}
             </Link>
-            <Link to={`/Sign_up`} className={styles.link} id={styles.signup}>
-              회원가입
+            <Link
+              to={urlRight[isLogin]}
+              className={styles.link}
+              id={styles.signup}
+            >
+              {nameRight[isLogin]}
             </Link>
           </div>
         </div>

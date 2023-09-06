@@ -6,7 +6,8 @@ function MunhwaRow(props) {
   const navigate = useNavigate();
 
   const onClickMunhwaItem = () => {
-    navigate(`/munhwaRow/${props.title}`, {
+    navigate(`/munhwaRow/${props.id}`, {
+      replace: false,
       state: props,
     });
   };
@@ -17,7 +18,8 @@ function MunhwaRow(props) {
         <img src={props.poster} onClick={onClickMunhwaItem} />
       </div>
       <div>{props.title}</div>
-      <div>{props.singer}</div>
+      <div>{props.date}</div>
+      <div>{props.place}</div>
     </div>
   );
 }

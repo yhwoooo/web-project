@@ -29,31 +29,37 @@ function Home(props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchData = async () => {
-    try {
-      setError(null);
-      setData(null);
-      setLoading(true);
+  // const fetchData = async () => {
+  //   try {
+  //     setError(null);
+  //     setData(null);
+  //     setLoading(true);
 
-      const response = await axios.get(url, {
-        params: {
-          serviceKey: process.env.REACT_APP_API_KEY,
-          numOfRows: 10,
-          pageNo: 1,
-        },
-      });
+  //     const response = await axios.get(url, {
+  //       params: {
+  //         serviceKey: process.env.REACT_APP_API_KEY,
+  //         numOfRows: 10,
+  //         pageNo: 1,
+  //       },
+  //     });
 
-      setData(response.data);
-    } catch (e) {
-      setError(e);
-    }
-    setLoading(false);
-  };
-
-  console.log(data);
+  //     setData(response.data);
+  //   } catch (e) {
+  //     setError(e);
+  //   }
+  //   setLoading(false);
+  // };
 
   useEffect(() => {
-    fetchData();
+    setLoading(true);
+    axios
+      .get("/api/home")
+      .then((response) => {
+        setData(response.data);
+        setLoading(false);
+        console.log(response.data);
+      })
+      .catch((err) => setError(err));
   }, []);
 
   if (loading) return <div>Loading...</div>;
@@ -66,66 +72,17 @@ function Home(props) {
         <h4>신규 문화 추천</h4>
       </div>
       <div className={styles.home_upper}>
-        <div
-          className={styles.home_upper_content}
-          // onMouseEnter={disableScroll}
-          // onMouseLeave={enableScroll}
-        >
-          {/* <ScrollMenu
-            LeftArrow={LeftArrow}
-            RightArrow={RightArrow}
-            // onWheel={onWheel}
-          > */}
-          <div>
-            <Link>
-              <img src={`img/boat.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`${process.env.PUBLIC_URL}/img/cleanlake.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/cycle.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/green.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/house.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/newyork.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/purpleFlower.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/roadoflight.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/sunset.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/whiteFlower.jpg`} />
-            </Link>
-          </div>
+        <div className={styles.home_upper_content}>
+          {data.recentCultures.map((culture) => {
+            const url = `/munhwaRow/${culture.id}`;
+            return (
+              <div key={culture.id}>
+                <Link to={url}>
+                  <img src={culture.main_img} alt="상세페이지" />
+                </Link>
+              </div>
+            );
+          })}
 
           <div className={styles.prev}>
             <i className={styles.prev_arrow}>◀</i>
@@ -141,56 +98,17 @@ function Home(props) {
       </div>
       <div className={styles.home_upper}>
         <div className={styles.home_upper_content}>
-          <div>
-            <Link>
-              <img src={`img/beautifulroad.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/a_house_under_a_cliff.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/aSailBoat.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/lakeinthehouse.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/moonsight.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/sakura.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/snowmountain.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/TheFall.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/treenearthchair.jpg`} />
-            </Link>
-          </div>
-          <div>
-            <Link>
-              <img src={`img/windmill.jpg`} />
-            </Link>
-          </div>
+          {data.recentCultures.map((culture) => {
+            const url = `/munhwaRow/${culture.id}`;
+            return (
+              <div key={culture.id}>
+                <Link to={url}>
+                  <img src={culture.main_img} alt="상세페이지" />
+                </Link>
+              </div>
+            );
+          })}
+
           <div className={styles.prev}>
             <i className={styles.prev_arrow}>◀</i>
           </div>

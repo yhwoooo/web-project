@@ -108,12 +108,44 @@
   cursor: pointer;
 }
 
-.body_text:hover {
+.body_text .classicButton {
+  text-decoration: none;
+  /* outline: none; */
+  color: #707070;
+  background-color: transparent;
+  /* background: inherit; */
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  cursor: pointer;
+}
+
+.body_text .activeButton {
+  text-decoration: none;
+  /* outline: none; */
+  color: dodgerblue;
+  background-color: transparent;
+  /* background: inherit; */
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  cursor: pointer;
+}
+
+.body_text .classicButton:hover {
   color: dodgerblue;
 }
 
-.body_text a:active {
+.body_text .classicButton:active {
   color: dodgerblue;
+}
+
+.activeButton:active {
+  color: #707070;
 }
 
 #body_text {
@@ -139,5 +171,4 @@
   height: 100%;
   /* background-color: blue; */
   margin-top: 50px;
-  border: 1px solid #ddd;
 }

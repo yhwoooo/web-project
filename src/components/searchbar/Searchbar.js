@@ -47,9 +47,15 @@ function Searchbar({ inputD }) {
       return (
         <MunhwaRow
           key={key}
-          poster={val.poster}
+          poster={val.main_img}
           title={val.title}
-          singer={val.singer}
+          date={val.date}
+          guname={val.guname}
+          id={val.id}
+          org_link={val.org_link}
+          place={val.place}
+          codeName={val.codeName}
+          player={val.player}
         />
       );
     });

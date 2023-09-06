@@ -1,24 +1,51 @@
-// import React, { useEffect } from "react";
-
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Navigate, useSearchParams } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 // import { actionCreators as userAction } from "../redux/modules/user";
 // import Spinner from "../elements/Spinner";
 
-// function KakaoAuthHandler(props) {
-//   const dispatch = useDispatch();
-//   //발급된 인가코드를 백엔드로 넘겨주기 위해 꺼내오는 작업이 필요하다.
-//   //code라는 이름으로 파라미터 코드 값을 꺼내오려면 아래와 같이 선언하면 된다.
+export default function KakaoAuthHandler() {
+  const [error, setError] = useState(null);
+  const [isMember, setIsMember] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState(null);
+  const code = searchParams.get("code");
+  const params = {
+    code: code,
+  };
 
-//   let code = new URL(window.location.href).searchParams.get("code");
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get("/api/auth/kakao/callback", { params })
+      .then((response) => {
+        setData(response.data);
+        setIsMember(response.data.isMember);
+        setLoading(false);
+        localStorage.setItem("userData", JSON.stringify(response.data));
+      })
+      .catch((err) => setError(err));
+  }, []);
 
-//   useEffect(() => {
-//     //꺼내온 code(인가코드)를 미들웨어를 통해 백엔드로 넘겨준다.
-//     dispatch(userAction.kakaologinAC(code));
-//   }, []);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error...</div>;
+  if (!data) return null;
 
-//   return (
-//     <Wrap>
-//       <Spinner />
-//     </Wrap>
-//   );
-// }
+  if (isMember) {
+    sessionStorage.setItem("userId", data.id);
+    return <Navigate to="/" />;
+  }
+
+  return <Navigate to="/Input_signup" />;
+}
+
+// return (
+//   <div>
+//     {/* <h1>is Member: {isMember}</h1> */}
+//     {/* <h1>{data[0].id}</h1>s */}
+//     <h2>{data.id}</h2>
+//     {/* <h2>{data.age_range}</h2> */}
+//   </div>
+// );

@@ -6,7 +6,7 @@ function Footer(props) {
     <div className={styles.footer}>
       <div className={styles.contents_nav}>
         <div className={styles.left}>
-          <Link className={styles.left_click} to={`/MyPage`}>
+          <Link className={styles.left_click} to={`/Input_signup`}>
             ◀
           </Link>
         </div>
