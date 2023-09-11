@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
 const urlLeft = {
-  true: "/Logout",
+  true: "/logout",
   false: "/Login",
 };
 
@@ -206,7 +206,7 @@ function Header(props) {
             </Link>
           </li>
           <li>
-            <Link to={`/Concert`} className={styles.a}>
+            <Link to={`/ReviewBoard`} className={styles.a}>
               리뷰게시판
             </Link>
           </li>

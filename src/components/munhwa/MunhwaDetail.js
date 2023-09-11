@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, Link, useNavigate } from "react-router-dom";
 import styles from "./MunhwaDetail.module.css";
 
 function MunhwaDetail(props) {
@@ -10,6 +10,29 @@ function MunhwaDetail(props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { state } = useLocation();
+
+  const navigate = useNavigate();
+
+  const onClickPlusButton = () => {
+    navigate(`/CreatePost/${props.id}`, {
+      replace: false,
+      state: props,
+    });
+  };
+
+  const onClickReviewBoard = () => {
+    navigate(`/ReviewBoard`, {
+      replace: false,
+      state: props,
+    });
+  };
+
+  const onClickReviewDetail = () => {
+    navigate(`/ReviewDetail/${props.id}`, {
+      replace: false,
+      state: props,
+    });
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -32,7 +55,7 @@ function MunhwaDetail(props) {
         <div className={styles.container_body_inner}>
           <div>
             <h1 className={styles.title1}>
-              뮤지컬/오페라 상세
+              {data.codeName} 상세
               <hr style={{ border: 0 }} />
             </h1>
             <h1 className={styles.title2}>
@@ -76,28 +99,57 @@ function MunhwaDetail(props) {
           </div>
           <div className={styles.lower_content}>
             <div className={styles.review_preview}>
-              <div>리뷰게시판</div>
-              <div>+</div>
+              <div onClick={onClickReviewBoard}>리뷰게시판</div>
+              <div onClick={onClickPlusButton}>
+                <img src={"img/plus.png"} alt="" />
+              </div>
             </div>
-            <div className={styles.review_preview_content}>
-              <div>[뮤지컬/오페라]리뷰게시판제목</div>
-              <div>리뷰게시글 내용내용내용~~~~~~~~~~~~~~~~~~~</div>
+            <div className={styles.box_review_preview_content}>
+              <div
+                className={styles.review_preview_title}
+                onClick={onClickReviewDetail}
+              >
+                [뮤지컬/오페라]리뷰게시판제목
+              </div>
+              <div className={styles.review_preview_content}>
+                리뷰게시글 내용내용내용~~~~~~~~~~~~~~~~~~~리뷰게시글
+                내용내용내용~~~~~~~~~~~~~~~~~~~리뷰게시글
+                내용내용내용~~~~~~~~~~~~~~~~~~~리뷰게시글
+                내용내용내용~~~~~~~~~~~~~~~~~~~
+              </div>
             </div>
-            <div className={styles.review_preview_content}>
-              <div>[뮤지컬/오페라]리뷰게시판제목</div>
-              <div>리뷰게시글 내용내용내용~~~~~~~~~~~~~~~~~~~</div>
+            <div className={styles.box_review_preview_content}>
+              <div
+                className={styles.review_preview_title}
+                onClick={onClickReviewDetail}
+              >
+                [뮤지컬/오페라]리뷰게시판제목
+              </div>
+              <div className={styles.review_preview_content}>
+                리뷰게시글 내용내용내용~~~~~~~~~~~~~~~~~~~
+              </div>
             </div>
-            <div className={styles.review_preview_content}>
-              <div>[뮤지컬/오페라]리뷰게시판제목</div>
-              <div>리뷰게시글 내용내용내용~~~~~~~~~~~~~~~~~~~</div>
+            <div className={styles.box_review_preview_content}>
+              <div
+                className={styles.review_preview_title}
+                onClick={onClickReviewDetail}
+              >
+                [뮤지컬/오페라]리뷰게시판제목
+              </div>
+              <div className={styles.review_preview_content}>
+                리뷰게시글 내용내용내용~~~~~~~~~~~~~~~~~~~
+              </div>
             </div>
-            <div className={styles.review_preview_content}>
-              <div>[뮤지컬/오페라]리뷰게시판제목</div>
-              <div>리뷰게시글 내용내용내용~~~~~~~~~~~~~~~~~~~</div>
-            </div>
-            <div className={styles.review_preview_content}>
-              <div>[뮤지컬/오페라]리뷰게시판제목</div>
-              <div>리뷰게시글 내용내용내용~~~~~~~~~~~~~~~~~~~</div>
+            <div className={styles.box_review_preview_content}>
+              <div
+                className={styles.review_preview_title}
+                onClick={onClickReviewDetail}
+              >
+                [뮤지컬/오페라]리뷰게시판제목
+              </div>
+              <div className={styles.review_preview_content}>
+                리뷰게시글 내용내용내용~~~~~~~~~~~~~~~~~~~
+              </div>
             </div>
           </div>
         </div>

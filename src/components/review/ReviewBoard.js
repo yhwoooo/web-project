@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
-import styles from "./Musical.module.css";
-import Searchbar from "../searchbar/Searchbar";
-import SearchResultsList from "../searchbar/SearchResultsList";
+import React from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useLocation, useParams, Link, useNavigate } from "react-router-dom";
+import styles from "./ReviewBoard.module.css";
+import ReviewSearch from "./ReviewSearch";
 
-function Musical() {
+function ReviewBoard(props) {
+  const { id } = useParams();
+  const { state } = useLocation();
   const [inputD, setInputD] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -32,11 +34,11 @@ function Musical() {
         <div className={styles.container_body_inner}>
           <div>
             <h1>
-              {inputD.recentCultures[0].codeName} <hr style={{ border: 0 }} />
+              리뷰게시판 <hr style={{ border: 0 }} />
             </h1>
           </div>
           <div className={styles.searchbarcontainer}>
-            <Searchbar inputD={inputD.recentCultures} />
+            <ReviewSearch inputD={inputD.recentCultures} />
           </div>
         </div>
       </div>
@@ -44,4 +46,4 @@ function Musical() {
   );
 }
 
-export default Musical;
+export default ReviewBoard;
